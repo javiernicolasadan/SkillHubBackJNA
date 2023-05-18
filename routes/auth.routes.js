@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express"); */
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
@@ -21,7 +21,7 @@ router.post("/signup", async (req, res, next) => {
           await User.create({
             email: req.body.email,
             username: req.body.username,
-            password: passwordHash,
+            passwordHash: passwordHash,
           });
           res.status(201).json({ message: "Welcome Aboard!" });
         }
@@ -34,7 +34,7 @@ router.post("/signup", async (req, res, next) => {
 router.post("/login", async (req, res) => {
   const potentialUser = await User.findOne({ email: req.body.email });
   if (potentialUser) {
-    if (bcryptjs.compareSync(req.body.password, potentialUser.password)) {
+    if (bcryptjs.compareSync(req.body.password, potentialUser.passwordHash)) {
       const authToken = jwt.sign(
         { userId: potentialUser._id },
         process.env.TOKEN_SECRET,
@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
 });
 
 //  GET to Verfiy
-router.get("/verfiy", isAuthenticated, async (res, req, next) => {
+router.get("/verfiy", isAuthenticated, async (req, res, next) => {
   const user = await User.findById(req.payload.userId);
   res.status(200).json({ message: "User is authenticated", user });
 });

@@ -20,7 +20,11 @@ const skillSchema = new Schema(
     events: {
       type: [Schema.Types.ObjectId],
       ref: 'event',  
-    }
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+  },
   },
   {
     timestamps: true

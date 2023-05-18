@@ -5,7 +5,8 @@ const skillSchema = new Schema(
     category: {
       type: String,
       required: true, 
-      enum: ['Music', 'Fotografy', 'Coding', 'Cooking', 'Gardering', 'Health', 'Domestic-Skills', 'Idioms' ]
+      enum: ['Music', 'Photography', 'Coding', 'Cooking', 'Gardering', 'Beauty', 'Domestic-Skills', 'Languages', 'Other' ],
+      default: "Other",
     },
     title: {
       type: String,   

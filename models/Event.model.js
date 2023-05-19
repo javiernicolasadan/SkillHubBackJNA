@@ -18,7 +18,8 @@ const eventSchema = new Schema(
     },
     locationType: {
       type: String, 
-      enum: ['online', 'in-person']
+      enum: ['online', 'in-person'],
+      default: 'online',
     },
     createdBy: {
         type: Schema.Types.ObjectId,

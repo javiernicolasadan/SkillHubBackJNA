@@ -1,12 +1,16 @@
 const Skill = require("../models/Skill.model");
 const router = require("express").Router();
 
-/* router.get("/", (req, res, next) => {
-  res.json("Skill good in here");
-}); */
-
-router.get("/", (req, res, next) => {
-  res.json("Skill good in here");
+router.get("/", async(req, res, next) => {
+    const category = req.query.category
+    let skills
+    if(category){
+        skills = await Skill.find({category})
+    }else{
+        skills = await Skill.find()
+    }
+    res.status(200).json(skills)
+  
 });
 
 // POST  to add one Skill

@@ -18,7 +18,8 @@ const skillSchema = new Schema(
       required: true,
     },
     events: {
-      type: [Object]
+      type: [Schema.Types.ObjectId],
+      ref: 'Event'
     },
     createdBy: {
       type: String,

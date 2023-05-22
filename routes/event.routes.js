@@ -7,14 +7,15 @@ router.get("/", (req, res, next) => {
   res.json("Event good in here");
 });
 
-// POST  to add one Event
+// POST to add one Event
 router.post("/create", async (req, res) => {
   
   try {
     const payload = req.body;
     console.log("Payload:", payload)
     const newEvent = await Event.create(payload);
-    const addedEvent = await Skill.findByIdAndUpdate(payload.skillid, { $push: { events: payload }}, { new: true })
+    const eventId = newEvent._id
+    const addedEvent = await Skill.findByIdAndUpdate(payload.skillid, { $push: { events: eventId }}, { new: true })
     res.status(201).json(newEvent);
   } catch (error) {
     console.log(error);

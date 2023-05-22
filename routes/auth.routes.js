@@ -12,7 +12,7 @@ router.post("/signup", async (req, res, next) => {
     try {
       const existingUser = await User.findOne(
         { email: req.body.email }
-      );
+      );npo
       if (existingUser) {
         return res
           .status(400)

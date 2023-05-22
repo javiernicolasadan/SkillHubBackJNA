@@ -27,7 +27,7 @@ router.post("/create", async (req, res) => {
 
 router.get('/:skillid', async (req, res) => {
   try {
-    const skill = await Skill.findById(req.params.skillid)
+    const skill = await Skill.findById(req.params.skillid).populate('events')
     res.status(200).json(skill)
   } catch (error) {
    console.log(error) 

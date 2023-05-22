@@ -10,7 +10,6 @@ router.get("/", async(req, res, next) => {
         skills = await Skill.find()
     }
     res.status(200).json(skills)
-  
 });
 
 // POST  to add one Skill

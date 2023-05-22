@@ -1,5 +1,6 @@
 const Event = require("../models/Event.model");
 const Skill = require("../models/Skill.model")
+const User = require("../models/User.model")
 const router = require("express").Router();
 
 
@@ -75,4 +76,23 @@ router.delete ("/deleteevent/:eventId", async (req, res) => {
   } catch (error) {
     console.log(error)
 }})
+
+router.post("/subscribe/:eventId", async(req, res, next) => {
+  try {
+    const eventId = req.params.eventId
+    const userId = req.body.userId
+    console.log("Event ID:", eventId);
+    console.log("User ID:", userId);
+    const potentialSubsc = await User.findById(userId)
+    if(potentialSubsc.subscribedEvents.includes(eventId)){
+      const unSubsc = await User.findByIdAndUpdate(userId, { $pull: { subscribedEvents: eventId }}, { new: true })
+      res.status(200).json({message: "Subscription deleted"})
+    }else{
+      const subsc = await User.findByIdAndUpdate(userId, { $push: { subscribedEvents: eventId }}, { new: true })
+      res.status(200).json({message: "Subscription successfull"})
+    }
+  } catch (error) {
+    console.log(error)
+  }
+});
 module.exports = router;

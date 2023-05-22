@@ -49,8 +49,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//  GET to Verfiy
-router.get("/verfiy", isAuthenticated, async (req, res, next) => {
+//  GET to Verifiy
+router.get("/verify", isAuthenticated, async (req, res, next) => {
   const user = await User.findById(req.payload.userId);
   res.status(200).json({ message: "User is authenticated", user });
 });

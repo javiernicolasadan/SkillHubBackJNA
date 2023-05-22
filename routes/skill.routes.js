@@ -1,10 +1,6 @@
 const Skill = require("../models/Skill.model");
 const router = require("express").Router();
 
-/* router.get("/", (req, res, next) => {
-  res.json("Skill good in here");
-}); */
-
 router.get("/", (req, res, next) => {
   res.json("Skill good in here");
 });

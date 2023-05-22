@@ -11,6 +11,7 @@ router.post("/create", async (req, res) => {
   
   try {
     const payload = req.body;
+    console.log("Payload:", payload)
     const newEvent = await Event.create(payload);
     res.status(201).json(newEvent);
   } catch (error) {

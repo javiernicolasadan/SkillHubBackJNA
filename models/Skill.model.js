@@ -5,7 +5,7 @@ const skillSchema = new Schema(
     category: {
       type: String,
       required: true, 
-      enum: ['Music', 'Photography', 'Coding', 'Cooking', 'Gardering', 'Beauty', 'Domestic-Skills', 'Languages', 'Other' ],
+      enum: ['Music', 'Photography', 'Coding', 'Cooking', 'Gardening', 'Beauty', 'Domestic-Skills', 'Languages', 'Other' ],
       default: "Other",
     },
     title: {
@@ -18,12 +18,10 @@ const skillSchema = new Schema(
       required: true,
     },
     events: {
-      type: [Schema.Types.ObjectId],
-      ref: 'event',  
+      type: [Object]
     },
     createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
   },
   },
   {

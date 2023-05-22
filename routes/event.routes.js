@@ -1,4 +1,5 @@
 const Event = require("../models/Event.model");
+const Skill = require("../models/Skill.model")
 const router = require("express").Router();
 
 
@@ -13,6 +14,7 @@ router.post("/create", async (req, res) => {
     const payload = req.body;
     console.log("Payload:", payload)
     const newEvent = await Event.create(payload);
+    const addedEvent = await Skill.findByIdAndUpdate(payload.skillid, { $push: { events: payload }}, { new: true })
     res.status(201).json(newEvent);
   } catch (error) {
     console.log(error);

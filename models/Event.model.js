@@ -26,8 +26,11 @@ const eventSchema = new Schema(
         ref: 'User',
     },
     skillTitle: {
-        type:Schema.Types.ObjectId,
-        ref: 'Skill', 
+        type: String, 
+    },
+    skillid:{
+      type:Schema.Types.ObjectId,
+      ref: 'Skill',
     }
   },
   {

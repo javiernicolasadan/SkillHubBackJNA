@@ -75,3 +75,12 @@ router.delete ("/deleteevent/:eventId", async (req, res) => {
     console.log(error)
 }})
 module.exports = router;
+
+router.get ("/events", async (req, res) => {
+  try {
+    const events = await Event.find()
+    res.status(200).json(Event.events)
+  } catch (error) {
+    console.log(error);
+  }
+})

@@ -2,6 +2,7 @@ const Event = require("../models/Event.model");
 const Skill = require("../models/Skill.model")
 const User = require("../models/User.model")
 const router = require("express").Router();
+const uploader = require("../middleware/cloudinary.config")
 
 
 router.get("/", async (req, res) => {
@@ -14,14 +15,13 @@ router.get("/", async (req, res) => {
 })
 
 // POST to add one Event
-router.post("/create", async (req, res) => {
-  
+router.post("/create", uploader.single("imageUrl"), async (req, res) => {
+    const {title, date, locationType, description, skillTitle, skillid  } = req.body;
+    const imageUrl = req.file.path
   try {
-    const payload = req.body;
-    console.log("Payload:", payload)
-    const newEvent = await Event.create(payload);
+    const newEvent = await Event.create({title, date, locationType, description, skillTitle, skillid, imageUrl});
     const eventId = newEvent._id
-    const addedEvent = await Skill.findByIdAndUpdate(payload.skillid, { $push: { events: eventId }}, { new: true })
+    const addedEvent = await Skill.findByIdAndUpdate(req.body.skillid, { $push: { events: eventId }}, { new: true })
     res.status(201).json(newEvent);
   } catch (error) {
     console.log(error);
@@ -35,15 +35,7 @@ router.get("/eventdets/:eventId", async (req, res) => {
     const eventId = req.params.eventId
     const eventDetails = await Event.findById(eventId )
     const { _id, title, description, date, locationType } = eventDetails;
-    const formattedDate = date.toISOString().slice(0, 10)
-    const formattedEventDetails = {
-      _id,
-      title,
-      description,
-      date: formattedDate,
-      locationType,
-    }
-    res.status(200).json(formattedEventDetails)
+    res.status(200).json(eventDetails)
       
   } catch (error) {
     console.log(error);

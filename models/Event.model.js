@@ -13,7 +13,7 @@ const eventSchema = new Schema(
       required: true,
     },
     date: {
-      type: Date,
+      type: String,
       required: true, 
     },
     locationType: {
@@ -31,7 +31,11 @@ const eventSchema = new Schema(
     skillid:{
       type:Schema.Types.ObjectId,
       ref: 'Skill',
+    },
+    imageUrl: {
+      type: String,
     }
+
   },
   {
     timestamps: true

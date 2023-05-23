@@ -3,9 +3,14 @@ const Skill = require("../models/Skill.model")
 const router = require("express").Router();
 
 
-router.get("/", (req, res, next) => {
-  res.json("Event good in here");
-});
+router.get("/", async (req, res) => {
+  try {
+    const events = await Event.find()
+    res.status(200).json(events)
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 // POST  to add one Event
 router.post("/create", async (req, res) => {
@@ -76,11 +81,3 @@ router.delete ("/deleteevent/:eventId", async (req, res) => {
 }})
 module.exports = router;
 
-router.get ("/events", async (req, res) => {
-  try {
-    const events = await Event.find()
-    res.status(200).json(Event.events)
-  } catch (error) {
-    console.log(error);
-  }
-})

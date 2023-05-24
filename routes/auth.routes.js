@@ -56,3 +56,4 @@ router.get("/verify", isAuthenticated, async (req, res, next) => {
 });
 
 module.exports = router;
+  

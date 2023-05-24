@@ -38,7 +38,7 @@ router.post("/create", uploader.single("imageUrl"), async (req, res) => {
 router.get("/eventdets/:eventId", async (req, res) => {
     
   try {
-    console.log(req.params)
+    /* console.log(req.params) */
     const eventId = req.params.eventId
     const eventDetails = await Event.findById(eventId )
     const { _id, title, description, date, locationType } = eventDetails;
@@ -50,9 +50,18 @@ router.get("/eventdets/:eventId", async (req, res) => {
 })
 
 // POST edit event
-router.put ("/updateevent/:eventId", async (req, res) => {
+router.put ("/updateevent/:eventId", uploader.single("imageUrl"), async (req, res) => {
 
   try {
+    console.log("req.params", req.params)
+    let imageUrl;
+    if (req.file) {
+      imageUrl = req.file.path;
+    } else {
+      imageUrl = req.body.originalImageUrl;
+    }
+
+    console.log("req.params", req.params)
     const eventId = req.params.eventId
     const updateDataEvent = req.body
     const updatedEvent = await Event.findByIdAndUpdate(
@@ -62,11 +71,13 @@ router.put ("/updateevent/:eventId", async (req, res) => {
        description: updateDataEvent.description,
        date: updateDataEvent.date,
        locationType: updateDataEvent.locationType,
+       imageUrl: imageUrl || updateDataEvent.imageUrl || defaultImageUrl, 
 
       }, {new:true})
       res.status(200).json(updatedEvent)
   } catch (error) {
     console.log(error)
+    
   }
 
 })
@@ -85,8 +96,8 @@ router.post("/subscribe/:eventId", async(req, res, next) => {
   try {
     const eventId = req.params.eventId
     const userId = req.body.userId
-    console.log("Event ID:", eventId);
-    console.log("User ID:", userId);
+   /*  console.log("Event ID:", eventId);
+    console.log("User ID:", userId); */
     const potentialSubsc = await User.findById(userId)
     if(potentialSubsc.subscribedEvents.includes(eventId)){
       const unSubsc = await User.findByIdAndUpdate(userId, { $pull: { subscribedEvents: eventId }}, { new: true })

@@ -24,6 +24,9 @@ const skillSchema = new Schema(
     createdBy: {
       type: String,
   },
+    imageUrl: {
+      type: String,
+    }
   },
   {
     timestamps: true

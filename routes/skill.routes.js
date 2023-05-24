@@ -1,6 +1,8 @@
 const User = require("../models/User.model");
 const Skill = require("../models/Skill.model");
 const router = require("express").Router();
+const uploader = require("../middleware/cloudinary.config")
+const defaultImageUrl = "https://res.cloudinary.com/dgbg06crz/image/upload/v1684852040/jrdskan28uad3zbjd1se.jpg"
 
 router.get("/", async (req, res, next) => {
   const category = req.query.category;
@@ -14,13 +16,20 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST  to add one Skill
-router.post("/create", async (req, res) => {
-  const payload = req.body;
+router.post("/create", uploader.single("imageUrl"), async (req, res) => {
+  console.log("req body", req.body)
+  const {title, details, category, createdBy} = req.body;
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  } else {
+    imageUrl = defaultImageUrl;
+  }
   const userId = req.body.createdBy;
   console.log("User ID:", userId);
-  console.log("Hello:", payload);
+  /* console.log("Hello:", payload); */
   try {
-    const newSkill = await Skill.create(payload);
+    const newSkill = await Skill.create({title, details, category, createdBy, imageUrl});
     if (userId) {
       const userSkills = await User.findByIdAndUpdate(
         userId,

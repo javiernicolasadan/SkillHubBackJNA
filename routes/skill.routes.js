@@ -2,7 +2,7 @@ const User = require("../models/User.model");
 const Skill = require("../models/Skill.model");
 const router = require("express").Router();
 const uploader = require("../middleware/cloudinary.config")
-const defaultImageUrl = "https://res.cloudinary.com/dgbg06crz/image/upload/v1684852040/jrdskan28uad3zbjd1se.jpg"
+const defaultImageUrl = "https://res.cloudinary.com/dgbg06crz/image/upload/v1684948163/skills_default_ozdz3i.jpg"
 
 router.get("/", async (req, res, next) => {
   const category = req.query.category;

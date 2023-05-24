@@ -1,6 +1,8 @@
 const User = require("../models/User.model");
 const Skill = require("../models/Skill.model");
 const router = require("express").Router();
+const uploader = require("../middleware/cloudinary.config")
+const defaultImageUrl = "https://res.cloudinary.com/dgbg06crz/image/upload/v1684852040/jrdskan28uad3zbjd1se.jpg"
 
 router.get("/", async (req, res, next) => {
   const category = req.query.category;
@@ -14,13 +16,20 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST  to add one Skill
-router.post("/create", async (req, res) => {
-  const payload = req.body;
+router.post("/create", uploader.single("imageUrl"), async (req, res) => {
+  console.log("req body", req.body)
+  const {title, details, category, createdBy} = req.body;
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  } else {
+    imageUrl = defaultImageUrl;
+  }
   const userId = req.body.createdBy;
   console.log("User ID:", userId);
-  console.log("Hello:", payload);
+  /* console.log("Hello:", payload); */
   try {
-    const newSkill = await Skill.create(payload);
+    const newSkill = await Skill.create({title, details, category, createdBy, imageUrl});
     if (userId) {
       const userSkills = await User.findByIdAndUpdate(
         userId,
@@ -46,15 +55,26 @@ router.get("/:skillid", async (req, res) => {
   }
 });
 
+//UPDATE Skill
+
+
 // PUT to update
-router.put("/:skillid", async (req, res) => {
+router.put("/:skillid", uploader.single("imageUrl"), async (req, res) => {
   const { skillid } = req.params;
-  const payload = req.body;
+  
   try {
-    const updatedSkill = await Skill.findByIdAndUpdate(skillid, payload, {
+  if (req.file) {
+    const updatedSkill = await Skill.findByIdAndUpdate(skillid, {...req.body, imageUrl: req.file.path},{
       new: true,
     });
     res.status(200).json(updatedSkill);
+  } else {
+    const updatedSkill = await Skill.findByIdAndUpdate(skillid, {...req.body},{
+      new: true,
+    });
+    res.status(200).json(updatedSkill);
+  }
+      
   } catch (error) {
     console.log(error);
   }

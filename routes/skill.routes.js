@@ -55,15 +55,26 @@ router.get("/:skillid", async (req, res) => {
   }
 });
 
+//UPDATE Skill
+
+
 // PUT to update
-router.put("/:skillid", async (req, res) => {
+router.put("/:skillid", uploader.single("imageUrl"), async (req, res) => {
   const { skillid } = req.params;
-  const payload = req.body;
+  
   try {
-    const updatedSkill = await Skill.findByIdAndUpdate(skillid, payload, {
+  if (req.file) {
+    const updatedSkill = await Skill.findByIdAndUpdate(skillid, {...req.body, imageUrl: req.file.path},{
       new: true,
     });
     res.status(200).json(updatedSkill);
+  } else {
+    const updatedSkill = await Skill.findByIdAndUpdate(skillid, {...req.body},{
+      new: true,
+    });
+    res.status(200).json(updatedSkill);
+  }
+      
   } catch (error) {
     console.log(error);
   }

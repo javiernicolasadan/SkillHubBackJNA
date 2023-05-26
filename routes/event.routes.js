@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 })
 
 // POST to add one Event
-router.post("/create", uploader.single("imageUrl"), async (req, res) => {
+router.post("/create", uploader.single("imageUrl"), async (req, res) => {cd
     const {title, date, locationType, description, skillTitle, skillid  } = req.body;
     let imageUrl;
     if (req.file) {

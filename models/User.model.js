@@ -30,7 +30,11 @@ const userSchema = new Schema(
     createdEvents: {
       type: [Schema.Types.ObjectId],
       ref: 'Event',
-    }
+    },
+    imageUrl:{
+      type: String,
+      default: 'https://res.cloudinary.com/dvt9rqshe/image/upload/v1686667112/avatarTest_gqusvt.jpg'
+    },
   },
   {
     timestamps: true

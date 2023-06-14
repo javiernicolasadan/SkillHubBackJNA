@@ -57,7 +57,6 @@ router.get("/eventdets/:eventId", async (req, res) => {
 
 // POST edit event
 router.put ("/updateevent/:eventId", uploader.single("imageUrl"), async (req, res) => {
-
   try {
     console.log("req.params", req.params)
     let imageUrl;

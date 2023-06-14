@@ -34,7 +34,12 @@ const eventSchema = new Schema(
     },
     imageUrl: {
       type: String,
-    }
+    },
+    category: {
+      type: String,
+      required: true, 
+      enum: ['Music', 'Photography', 'Coding', 'Cooking', 'Gardening', 'Beauty', 'Domestic-Skills', 'Languages', 'Other' ],
+    },
 
   },
   {

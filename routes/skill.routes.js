@@ -9,6 +9,7 @@ router.get("/", async (req, res, next) => {
   let skills;
   if (category) {
     skills = await Skill.find({ category });
+    console.log(skills)
   } else {
     skills = await Skill.find();
   }

@@ -29,7 +29,7 @@ router.post("/signup", async (req, res, next) => {
         else {
           return res
           .status(400)
-          .json({ message: "Password is not strong enought"})
+          .json({ message: "Password should have at least 8 characters length, one letter, and one number"})
         }
         }
        

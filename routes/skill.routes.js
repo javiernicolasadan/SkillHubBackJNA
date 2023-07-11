@@ -9,6 +9,7 @@ router.get("/", async (req, res, next) => {
   let skills;
   if (category) {
     skills = await Skill.find({ category }).populate("createdBy")
+
   } else {
     skills = await Skill.find().populate("createdBy")
   }

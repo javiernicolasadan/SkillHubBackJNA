@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 const router = require("express").Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
+const pwdRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/
 
 //  POST  to signup
 router.post("/signup", async (req, res, next) => {
@@ -18,13 +19,20 @@ router.post("/signup", async (req, res, next) => {
           .status(400)
           .json({ message: "Email already exists" });
       } else {
+        if (pwdRegex.test(req.body.password)) {
           await User.create({
-            email: req.body.email,
-            username: req.body.username,
-            passwordHash: passwordHash,
-          });
-          res.status(201).json({ message: "Welcome Aboard!" });
+          email: req.body.email,
+          username: req.body.username,
+          passwordHash: passwordHash,
+        });
+        res.status(201).json({ message: "Welcome Aboard!" });}
+        else {
+          return res
+          .status(400)
+          .json({ message: "Password should have at least 8 characters length, one letter, and one number"})
         }
+        }
+       
     } catch (error) {
      console.log(error)
     }

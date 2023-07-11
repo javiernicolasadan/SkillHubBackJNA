@@ -7,8 +7,14 @@ const defaultImageUrl = "https://res.cloudinary.com/dgbg06crz/image/upload/v1684
 
 
 router.get("/", async (req, res) => {
+  const category = req.query.category
+  let events;
   try {
-    const events = await Event.find()
+    if (category) {
+      events = await Event.find({category})
+      } else {
+      events = await Event.find();
+      }
     res.status(200).json(events)
   } catch (error) {
     console.log(error);
@@ -17,7 +23,7 @@ router.get("/", async (req, res) => {
 
 // POST to add one Event
 router.post("/create", uploader.single("imageUrl"), async (req, res) => {
-    const {title, date, locationType, description, skillTitle, skillid  } = req.body;
+    const {title, date, locationType, description, skillTitle, skillid, category  } = req.body;
     let imageUrl;
     if (req.file) {
       imageUrl = req.file.path;
@@ -25,7 +31,7 @@ router.post("/create", uploader.single("imageUrl"), async (req, res) => {
       imageUrl = defaultImageUrl;
     }
   try {
-    const newEvent = await Event.create({title, date, locationType, description, skillTitle, skillid, imageUrl});
+    const newEvent = await Event.create({title, date, locationType, description, skillTitle, skillid, imageUrl, category});
     const eventId = newEvent._id
     const addedEvent = await Skill.findByIdAndUpdate(req.body.skillid, { $push: { events: eventId }}, { new: true })
     res.status(201).json(newEvent);

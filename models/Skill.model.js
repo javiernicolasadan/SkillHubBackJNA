@@ -22,7 +22,8 @@ const skillSchema = new Schema(
       ref: 'Event'
     },
     createdBy: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'User'
   },
     imageUrl: {
       type: String,

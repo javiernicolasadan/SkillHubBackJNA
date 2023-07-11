@@ -8,10 +8,10 @@ router.get("/", async (req, res, next) => {
   const category = req.query.category;
   let skills;
   if (category) {
-    skills = await Skill.find({ category });
-    console.log(skills)
+    skills = await Skill.find({ category }).populate("createdBy")
+
   } else {
-    skills = await Skill.find();
+    skills = await Skill.find().populate("createdBy")
   }
   res.status(200).json(skills);
 });

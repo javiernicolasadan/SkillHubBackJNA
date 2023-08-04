@@ -33,7 +33,7 @@ const userSchema = new Schema(
     },
     imageUrl:{
       type: String,
-      default: 'https://res.cloudinary.com/dvt9rqshe/image/upload/v1686667112/avatarTest_gqusvt.jpg'
+      default: 'https://res.cloudinary.com/dvt9rqshe/image/upload/v1690881395/pexels-mohamed-abdelghaffar-771742_luskep.jpg'
     },
   },
   {

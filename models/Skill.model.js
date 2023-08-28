@@ -28,9 +28,6 @@ const skillSchema = new Schema(
     imageUrl: {
       type: String,
     }
-  },
-  {
-    timestamps: false
   }
 );
 

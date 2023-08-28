@@ -30,7 +30,7 @@ const skillSchema = new Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
 

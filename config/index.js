@@ -22,6 +22,7 @@ module.exports = (app) => {
   app.set("trust proxy", 1);
 
   // controls a very specific header to pass headers from the frontend
+  console.log("FRONTEND_URL:", FRONTEND_URL)
   app.use(
     cors({
       origin: [FRONTEND_URL]
@@ -36,3 +37,5 @@ module.exports = (app) => {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
 };
+
+//test

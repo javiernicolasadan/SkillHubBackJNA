@@ -1,4 +1,4 @@
-# SkillHub
+# SkillHub Backend
 
 <br>
 
@@ -173,7 +173,9 @@ The url to your repository and to your deployed project
 
 [Server repository Link](https://github.com/javiernicolasadan/SkillHubBack)
 
-[Deployed App Link](https://kaleidoscopic-eclair-d386a9.netlify.app/)
+[Deployed App Link](https://skill-hub-front-jna.vercel.app/)
+
+[Deployed BackEnd](https://skillhubbackjna.onrender.com/)
 
 ### Slides
 

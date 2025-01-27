@@ -175,7 +175,7 @@ The url to your repository and to your deployed project
 
 [Deployed App Link](https://skill-hub-front-jna.vercel.app/)
 
-[Deployed BackEnd](https://skillhubbackjna.onrender.com/)
+[Deployed BackEnd](https://docs.google.com/presentation/d/1JbQUXHPBXj2VIOu_rCn_mEHzTUJWQGPVyWx7Yb9MLnM/edit#slide=id.ged3401ed36_1_0)
 
 ### Slides
 
